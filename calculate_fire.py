@@ -12,7 +12,7 @@ def catch_on_fire(center):
 
     ISSUES:
     -Will break for edge cells
-    Cannot distinguish cells that were on fire but are not anymore.  might reignite them
+    -Cannot distinguish cells that were on fire but are not anymore.  might reignite them
     """
     up_left = (center[0]-1, center[1]+1)
     up = (center[0], center[1]+1)
