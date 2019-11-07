@@ -33,5 +33,6 @@ def put_out(center):
     Generates a fixed random chance for a cell on fire to stop being on fire
     """
     roll = randint(1,100)
-    if roll > 80:
-        map.burning_dict(center) = 0
+    if roll > map.fuel_dict(cell):
+        map.burning_dict(cell) = 0
+        map.flammability_dict(cell) = 0
