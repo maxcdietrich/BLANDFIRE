@@ -25,14 +25,14 @@ def catch_on_fire(center):
     cells_to_check = [up_left, up, up_right, left, right, down_left, down, down_right]
     for cell in cells_to_check:
         roll = randint(0,100)
-        if roll < map.flammability_dict(cell):
-            map.burning_dict(cell) = 1
+        if roll < map.tile_dict(cell).flammability:
+            map.tile_dict(cell).is_burning = True
 
 def put_out(center):
     """
-    Generates a fixed random chance for a cell on fire to stop being on fire
+    Generates a random roll and extinguishes the fire if it is higher than the tile fuel value
     """
     roll = randint(1,100)
-    if roll > map.fuel_dict(cell):
-        map.burning_dict(cell) = 0
-        map.flammability_dict(cell) = 0
+    if roll > map.tile_dict(cell).fuel:
+        map.tile_dict(cell).is_burning = False
+        map.tile_dict(cell).flammability = 0
