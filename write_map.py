@@ -1,3 +1,8 @@
+"""
+This file should create a Map object from the compiled data and then cache that map to a JSON formatted txt file
+
+@Authors: Max Dietrich
+"""
 import json
 from random import randint
 import map

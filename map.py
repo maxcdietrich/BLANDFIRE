@@ -8,11 +8,11 @@ import json
 
 class Map:
     """
-    Store information for the entire map
+    A low level object containing a dictionary.  Intended to map tuples with x,y data to Tile objects
     """
     def __init__(self, tile_dict={}):
         """
-        create a dictionary mapping each tile to an x,y tuple
+        Create a dictionary mapping each tile to an x,y tuple
         """
         self.tile_dict = tile_dict
 
@@ -25,20 +25,20 @@ class Map:
 
     def toJSONs(self):
         """
-        returns a json formatted string of Map
+        Returns a json formatted string of self
         """
         return json.dumps(self,default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
     def toJSON(self, filename):
         """
-        returns a json formatted .txt file of Map
+        Returns a json formatted .txt file of self
         """
         with open('{}.txt'.format(filename), 'w') as outfile:
             json.dump(self, outfile, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
     def fromJSON(self, filename):
         """
-        returns a Map object from a properly formatted json .txt file.  The target file must be encoded in the same format as a map object.
+        Returns a Map object from a properly formatted json .txt file.  The target file must be encoded in the same format as a map object.
 
         Inverse of toJSON
         """
