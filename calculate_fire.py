@@ -3,7 +3,7 @@ This program should cacluate whether a tile adjacent to a tile on fire tile shou
 
 @Author: Max Dietrich
 """
-import Map
+import map
 from random import randint
 
 def catch_on_fire(center):
@@ -36,3 +36,8 @@ def put_out(center):
     if roll > map.tile_dict(cell).fuel:
         map.tile_dict(cell).is_burning = False
         map.tile_dict(cell).flammability = 0
+    else:
+        map.tile_dict(cell).fuel = map.tile_dict(cell).fuel - 1
+
+def calculate_fire():
+    pass
