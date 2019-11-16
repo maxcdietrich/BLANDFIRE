@@ -8,7 +8,8 @@ import json
 
 class Map:
     """
-    A low level object containing a dictionary.  Intended to map tuples with x,y data to Tile objects
+    A low level object containing a dictionary.
+    Intended to map tuples with x,y data to Tile objects
     """
     def __init__(self, tile_dict={}):
         """
@@ -17,16 +18,16 @@ class Map:
         self.tile_dict = tile_dict
 
     def __str__(self):
-        s = ""
+        string = ""
         for key in self.tile_dict:
-            s += key + '\n' + self.tile_dict[key].__str__() + '\n\n'
-        return s
+            string += key + '\n' + self.tile_dict[key].__str__() + '\n\n'
+        return string
 
     def toJSONs(self):
         """
         Returns a json formatted string of self
         """
-        return json.dumps(self,default=lambda o: o.__dict__, sort_keys=True, indent=4)
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
     def toJSON(self, filename):
         """
@@ -37,11 +38,12 @@ class Map:
 
     def fromJSON(self, filename):
         """
-        Returns a Map object from a properly formatted json .txt file.  The target file must be encoded in the same format as a map object.
+        Returns a Map object from a properly formatted json .txt file.
+        The target file must be encoded in the same format as a map object.
 
         Inverse of toJSON
         """
-        self.tile_dict={}
+        self.tile_dict = {}
         with open('{}.txt'.format(filename), 'r') as infile:
             top_layer = json.load(infile)['tile_dict']
             for key in top_layer:
@@ -52,6 +54,10 @@ class Map:
 
 
 class Tile:
+    """
+    The base unit of the map and our model is the tile.
+    This contains information for a small geographic area
+    """
     def __init__(self, is_burning=False, flammability=0, fuel=0, wind=None, elevation=0):
         """
         Initiate the information for a tile
