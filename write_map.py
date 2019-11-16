@@ -11,8 +11,8 @@ south_west_corner = (37.5, -120) #coordinate pair
 north_east_corner = (37.8, -119.5) #coordinate pair
 x_length = 44190 #east-west length [m] ignore earth curvature
 y_length = 33300 #north-south length [m]
-# x_length = 90 #Test values to make small map
-# y_length = 90 #Test values to make small map
+# x_length = 900 #Test values to make small map
+# y_length = 900 #Test values to make small map
 tile_size = 30 #GIS tile 30m x 30m
 
 
