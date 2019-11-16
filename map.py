@@ -17,11 +17,10 @@ class Map:
         self.tile_dict = tile_dict
 
     def __str__(self):
-        """
-        Will print map properly but then throw error.  could catch with exception if it becomes a problem
-        """
+        s = ""
         for key in self.tile_dict:
-            print(key,'\n',self.tile_dict[key],'\n')
+            s += key + '\n' + self.tile_dict[key].__str__() + '\n\n'
+        return s
 
     def toJSONs(self):
         """
@@ -48,7 +47,7 @@ class Map:
             for key in top_layer:
                 tile_data = top_layer[key]
                 tile = Tile(**tile_data)
-                self.tile_dict[key] = tile
+                self.tile_dict[eval(key)] = tile
         return self.tile_dict
 
 

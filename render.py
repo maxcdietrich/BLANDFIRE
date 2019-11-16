@@ -9,13 +9,19 @@ class View:
 
     def init_render(self, seed_map):
         self.screen.fill((255,255,255))
+        rect_dict = {}
         for coordinate in seed_map.tile_dict:
-            coordinate = eval(coordinate)
             rectangle = pygame.Rect((coordinate[0],coordinate[1]),(1,1))
+            rect_dict[coordinate] = rectangle
             pygame.draw.rect(self.screen,(34,139,34),rectangle)
         pygame.display.flip()
         time.sleep(0.01)
 
+    def make_burning(self):
+        pass
+
+    def make_extinguished(self):
+        pass
 
     def update_render(self):
         pass
@@ -23,11 +29,7 @@ class View:
 def draw_model():
     sim_map = map.Map()
     sim_map.fromJSON('test_map')
-    key_list = []
-    for key in sim_map.tile_dict:
-        key_list.append(key)
-    key_list.sort()
-    last_key = eval(key_list[-1]) #has format (max x, max y)
+    last_key = max(sim_map.tile_dict)
     view = View(last_key[0],last_key[1])
     view.init_render(sim_map)
     print('done')

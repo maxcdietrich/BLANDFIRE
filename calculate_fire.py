@@ -19,6 +19,7 @@ def catch_on_fire(center):
     down = (center[0], center[1]-1)
     down_right = (center[0]+1, center[1]-1)
     cells_to_check = [up_left, up, up_right, left, right, down_left, down, down_right]
+    new_burning_cells = []
     for cell in cells_to_check:
         roll = randint(0,100) #create a random roll to check for fire spread
         const_factor = 0.58
@@ -29,7 +30,8 @@ def catch_on_fire(center):
         ignition_probability = const_factor*wind_factor*flam_factor*fuel_factor*elevation_factor #create the probability of the adjacent cell catching on fire
         if roll < ignition_probability*100: #compare the roll to the ignition_probability
             map.tile_dict(cell).is_burning = True #the adjacent cell catches on fire
-            burning_cells.append(cell)
+            new_burning_cells.append(cell)
+    return new_burning_cells
 
 def put_out(center):
     """
@@ -46,26 +48,34 @@ def put_out(center):
 
 
 
-def calculate_fire(start_tick, tick_limit, burning_cell_list):
+def calculate_fire(start_tick, tick_limit, previous_burning_cells, previous_extinguished_cells):
     """
     Iterate through a list containing the coordinates for burning cells and run the calculations on whether fire should spread
     """
+    #need to add view functions here
     if start_tick >= tick_limit:
-        return
+        return previous_burning_cells
     else:
-        for cell in burning_cell_list:
+        current_burning_cells = set(previous_burning_cells)
+        current_extinguished_cells = set(previous_extinguished_cells)
+        for cell in previous_burning_cells:
             assert type(cell) == tuple
-            catch_on_fire(cell)
+            new_burning_cells = catch_on_fire(cell)
+            current_burning_cells = set(current_burning_cells.extend(new_burning_cells))
             if put_out(cell):
-                burning_cell_list.remove(cell)
-            burning_cell_list.sort()
-            start_tick = start_tick + 1
-            calculate_fire(start_tick, tick_limit, burning_cell_list)
+                current_burning_cells.remove(cell)
+                current_extinguished_cells.append(cell)
+        current_burning_cells.sort()
+        current_extinguished_cells.sort()
+        start_tick = start_tick + 1
+        calculate_fire(start_tick, tick_limit, current_burning_cells, current_extinguished_cells)
 
 
 def run_model(tick_limit):
     """
     Can add kwargs for user to specify many cells to initially be on fire
     """
+    #need to add view functions here
     burning_cells = []
-    calculate_fire(0, tick_limit, burning_cells)
+    extinguished_cells = []
+    calculate_fire(0, tick_limit, burning_cells, extinguished_cells)
