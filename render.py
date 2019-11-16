@@ -4,7 +4,6 @@ the fire spreading model.
 
 @Authors: Max Dietrich
 """
-
 import time
 import pygame
 import map

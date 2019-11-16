@@ -20,7 +20,7 @@ class Map:
     def __str__(self):
         string = ""
         for key in self.tile_dict:
-            string += key + '\n' + self.tile_dict[key].__str__() + '\n\n'
+            string += str(key) + '\n' + self.tile_dict[key].__str__() + '\n\n'
         return string
 
     def toJSONs(self):
