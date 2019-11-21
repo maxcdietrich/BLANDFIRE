@@ -1,4 +1,5 @@
 *.pdf*
+*.png*
 load_map.py
 test*
 __pycache__
