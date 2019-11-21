@@ -31,11 +31,11 @@ def catch_on_fire(center, test_map):
         for cell in cells_to_check:
             if test_map.tile_dict[cell].is_burning == False: #Only try to ignite cell if it is not on fire
                 roll = randint(0, 100) #create a random roll to check for fire spread
-                const_factor = 0.4
+                const_factor = 0.33
                 wind_factor = 1
-                flam_factor = test_map.tile_dict[cell].flammability / 100
-                fuel_factor = 1
-                elevation_factor = 1
+                flam_factor =  1 + test_map.tile_dict[cell].flammability / 100
+                fuel_factor = 1 + test_map.tile_dict[cell].flammability / 100
+                elevation_factor = 1 - (test_map.tile_dict[center].elevation - test_map.tile_dict[cell].elevation) * 10
                 ignition_probability = const_factor*wind_factor*flam_factor*fuel_factor*elevation_factor #create the probability of the adjacent cell catching on fire
                 if roll < ignition_probability*100: #compare the roll to the ignition_probability
                     test_map.tile_dict[cell].is_burning = True #the adjacent cell catches on fire
@@ -52,13 +52,13 @@ def put_out(center, test_map):
     tile fuel value.  If not, decrease the fuel value to make it more likely to
     be extinguished
     """
-    roll = randint(1, 100)
+    roll = randint(-40, 40)
     if roll > test_map.tile_dict[center].fuel:
         test_map.tile_dict[center].is_burning = False
         test_map.tile_dict[center].flammability = 0
         return True
     else:
-        test_map.tile_dict[center].fuel = test_map.tile_dict[center].fuel - 0.1
+        test_map.tile_dict[center].fuel = test_map.tile_dict[center].fuel - 1
         return False
 
 def calculate_fire(current_burning_cells, current_extinguished_cells, test_map, view_object):
@@ -103,22 +103,25 @@ def run_model(iteration_limit):
     view = render.View(last_key[0], last_key[1])
     view.init_render(test_map)
 
-    burning_cells = [(300,300)]
+    burning_cells = [(200,200)]
     extinguished_cells = []
     iteration = 0
-    dataset_size = []
-    runtime = []
+    # dataset_size = []
+    # runtime = []
     while iteration <= iteration_limit:
-        start = timeit.default_timer()
-        burning_cells, extinguished_cells = calculate_fire(burning_cells, extinguished_cells, test_map, view) #DO NOT PASS IN map AS A PARAMETER
-        stop = timeit.default_timer()
-        dataset_size.append(len(burning_cells))
-        runtime.append(stop-start)
-        iteration += 1
+        try:
+            # start = timeit.default_timer()
+            burning_cells, extinguished_cells = calculate_fire(burning_cells, extinguished_cells, test_map, view) #DO NOT PASS IN map AS A PARAMETER
+            # stop = timeit.default_timer()
+            # dataset_size.append(len(burning_cells))
+            # runtime.append(stop-start)
+            iteration += 1
+        except TypeError:
+            return
 
-    plt.scatter(dataset_size, runtime)
-    plt.xlabel('# of burning cells')
-    plt.ylabel('calculate_fire runtime')
-    plt.show()
+    # plt.scatter(dataset_size, runtime)
+    # plt.xlabel('# of burning cells')
+    # plt.ylabel('calculate_fire runtime')
+    # plt.show()
 
-run_model(500)
+run_model(5000)
