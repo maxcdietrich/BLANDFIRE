@@ -15,11 +15,13 @@ class elevation:
         if np.any(data == no_data_val):
             self.elevation_array[data == no_data_val] = np.nan
 
-    def display(self,resolution = 500):
+        self.norm_data_array = self.normalize()
+
+    def display(self,resolution = 500,):
         fig = plt.figure(figsize = (12, 12))
         ax = fig.add_subplot(111)
-        plt.contourf(self.elevation_array, cmap = "viridis",
-                    levels = list(range(0, int(np.amax(map.elevation_array))+resolution, resolution)))
+        plt.contourf(self.norm_data_array, cmap = "viridis",
+                    levels = list(range(0, int(np.amax(self.norm_data_array))+resolution, resolution)))
         plt.title("Yosemite")
         cbar = plt.colorbar()
         plt.gca().set_aspect('equal', adjustable='box')
@@ -27,6 +29,9 @@ class elevation:
 
     def get_elevation(self, xy):
         return self.elevation_array[xy[0]][xy[1]]
+
+    def get_norm_elevation(self, xy):
+        return self.norm_data_array[xy[0]][xy[1]]
 
     def get_slope(self, xy1, xy2):
         rise = self.get_elevation(xy1)-self.get_elevation(xy2)
@@ -53,6 +58,4 @@ class elevation:
 
 
 map = elevation("map.tif")
-print(map.elevation_array)
-#map.display(500)
-print(map.normalize())
+map.display(10)
