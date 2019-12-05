@@ -9,10 +9,10 @@ import map
 
 south_west_corner = (37.5, -120) #coordinate pair
 north_east_corner = (37.8, -119.5) #coordinate pair
-x_length = 44190 #east-west length [m] ignore earth curvature
-y_length = 33300 #north-south length [m]
-# x_length = 15000 #Test values to make small map
-# y_length = 15000 #Test values to make small map
+# x_length = 44190 #east-west length [m] ignore earth curvature
+# y_length = 33300 #north-south length [m]
+x_length = 15000 #Test values to make small map
+y_length = 15000 #Test values to make small map
 tile_size = 30 #GIS tile 30m x 30m
 
 
@@ -25,7 +25,7 @@ def make_random_map():
         for y in range(y_length//tile_size):
             tile = map.Tile()
             tile.is_burning = False
-            tile.flammability = randint(-40, 40) * cos(x)
+            tile.flammability = randint(-40, 40) * math.cos(x /(300*math.pi))
             tile.fuel = randint(-40, 40)
             tile.wind = (1, 1) #speed, direction
             tile.elevation = math.sin(x/(100*math.pi)) * 50 * math.sin(y/(100*math.pi)) #1D sine wave
