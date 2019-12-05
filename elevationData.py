@@ -54,8 +54,3 @@ class elevation:
             temp_array = []
 
         return np.array(new_data_array)
-
-
-
-map = elevation("map.tif")
-map.display(10)
