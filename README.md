@@ -37,6 +37,10 @@ Visit [the installation page](https://confluence.ecmwf.int//display/ECC/ecCodes+
 #### How to run the code
 All .py files can be run from the terminal.
 
+#### Citations
+- The wind data that we use in our model was generated with the [WindNinja](https://www.firelab.org/project/windninja) CFD tool.
+- Elevation and fuel data was accessed through the [LANDFIRE](https://www.landfire.gov/index.php) database
+
 ### Contact Information
 Shawn: salbertson@olin.edu<br />
 Florian: fschwarzinger@olin.edu
