@@ -192,7 +192,6 @@ class Wind:
         """
         Takes an already calculated data set and projects it onto the desired size grid
         """
-
         old_size, lon_dim, lat_dim = self.find_base_size()
 
         scaling_factor = old_size / new_size
@@ -200,24 +199,19 @@ class Wind:
         wind_data = self.get_wind(input_lower_lon, input_upper_lon, input_lower_lat, input_upper_lat)
 
 
-        new_grid = [0] * int(len(wind_data)) * int(scaling_factor)**2
 
-        wind_data = list(split_list(wind_data, lon_dim))
-        print(len(wind_data[1]), len(wind_data[0]), len(wind_data))
-        new_list = []
-        for ido, sub_list in enumerate(wind_data):
+        wind_data = list(split_list(wind_data, 371))
+        unit_length = len(wind_data[0])
+        new_grid = []
+        for sub_list_id, sub_list in enumerate(wind_data):
             counter = 0
             while counter < scaling_factor:
                 for id, val in enumerate(sub_list):
-                    if (id + 1) % lon_dim != 0:
-                        new_list.extend([sub_list[id]] * int(scaling_factor))
+                    if (id + 1) % 371 != 0:
+                        new_grid.extend([sub_list[id]] * int(scaling_factor))
                     else:
                         counter = counter + 1
-            print('rolling over counter', ido)
-        # for id, el in enumerate(new_grid):
-        #     new_grid[id] = wind_data[int(id/(scaling_factor**2))]
-
-        new_grid = new_list
+        print(len(new_grid))
         return new_grid
 
 def split_list(input_list, result_length):
@@ -232,8 +226,6 @@ def split_list(input_list, result_length):
 def generate_wind():
     wind = Wind(myshp, mydbf, west_lon, east_lon, south_lat, north_lat)
     new_wind = wind.regrid(30, -120, -119.5, 37.5, 37.8)
-    print(len(new_wind))
     return new_wind
-    # print(new_wind[-30:-1])
 
-generate_wind()
+# generate_wind()

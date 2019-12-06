@@ -49,10 +49,10 @@ def make_real_map():
             tile.is_burning = False
             tile.flammability = randint(-40, 40) * math.cos(x /(300*math.pi))
             tile.fuel = randint(-40, 40)
-            tile.wind = simulation_wind(y * (y_length // tile_size) + x) #convert 2d index to 1d index of wind_data
+            tile.wind = simulation_wind[(y * (y_length // tile_size) + x)] #convert 2d index to 1d index of wind_data
             tile.elevation = math.sin(x/(100*math.pi)) * 50 * math.sin(y/(100*math.pi)) #1D sine wave
             real_map.tile_dict[str((x, y))] = tile #key is a str because json does not take tuples as keys
-
+    return real_map
 
 def write_real_map(filename):
     """
