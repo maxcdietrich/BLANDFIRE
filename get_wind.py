@@ -55,16 +55,6 @@ def remap_interval(val,
 myshp = open("SHAPEFILES/HOUR1/yosemite_landscape_12-03-2019_0900_120m.shp", "rb")
 mydbf = open("SHAPEFILES/HOUR1/yosemite_landscape_12-03-2019_0900_120m.dbf", "rb")
 
-
-# Taken by converting UTM Zone 11 coordinates on https://www.ngs.noaa.gov/NCAT/
-# These values specific to .shp files with preface "final_shape"
-west_lon = -119.9940268086
-east_lon = -119.4842024547
-
-south_lat = 37.4548996589
-north_lat = 37.8276271233
-
-
 class Wind:
     """
     Reads a ESRI shapefile containing wind data specified at a particular location
@@ -198,16 +188,14 @@ class Wind:
 
         wind_data = self.get_wind(input_lower_lon, input_upper_lon, input_lower_lat, input_upper_lat)
 
-
-
-        wind_data = list(split_list(wind_data, 371))
+        wind_data = list(split_list(wind_data, 359))
         unit_length = len(wind_data[0])
         new_grid = []
         for sub_list_id, sub_list in enumerate(wind_data):
             counter = 0
             while counter < scaling_factor:
                 for id, val in enumerate(sub_list):
-                    if (id + 1) % 371 != 0:
+                    if (id + 1) % 359 != 0:
                         new_grid.extend([sub_list[id]] * int(scaling_factor))
                     else:
                         counter = counter + 1
@@ -224,6 +212,12 @@ def split_list(input_list, result_length):
 
 # Everything that has to do with shapes
 def generate_wind():
+    # Taken by converting UTM Zone 11 coordinates on https://www.ngs.noaa.gov/NCAT/
+    # These values specific to .shp files with preface "final_shape"
+    west_lon = -120.006255
+    east_lon = -119.4736
+    south_lat = 37.464649
+    north_lat = 37.822073
     wind = Wind(myshp, mydbf, west_lon, east_lon, south_lat, north_lat)
     new_wind = wind.regrid(30, -120, -119.5, 37.5, 37.8)
     return new_wind
