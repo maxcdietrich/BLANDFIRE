@@ -17,7 +17,7 @@ class elevation:
 
         self.norm_data_array = self.normalize()
 
-    def display(self,resolution = 500,):
+    def display(self,resolution = 500):
         fig = plt.figure(figsize = (12, 12))
         ax = fig.add_subplot(111)
         plt.contourf(self.norm_data_array, cmap = "viridis",
@@ -54,3 +54,6 @@ class elevation:
             temp_array = []
 
         return np.array(new_data_array)
+
+map = elevation("US_DEM2016.tif")
+map.display(1)
