@@ -29,11 +29,11 @@ def catch_on_fire(center, test_map):
     cells_to_check = [up_left, up, up_right, left, right, down_left, down, down_right]
     new_burning_cells = []
     try: #Will try to check fire spread unless the target cell is not in the map
-        for cell in cells_to_check:
+        for id, cell in enumerate(cells_to_check):
             if test_map.tile_dict[cell].is_burning == False: #Only try to ignite cell if it is not on fire
                 roll = randint(0, 100) #create a random roll to check for fire spread
                 const_factor = 0.33
-                wind_factor = test_map.tile_dict[cell].wind[0]*math.cos(test_map.tile_dict[cell].wind[1]*math.pi/180)
+                wind_factor = math.exp(0.045*test_map.tile_dict[center].wind[0])*math.exp(test_map.tile_dict[center].wind[0]*0.131*(math.cos(test_map.tile_dict[center].wind_components[id]*math.pi/180)-1))
                 flam_factor =  1 + test_map.tile_dict[cell].flammability / 100
                 fuel_factor = 1 + test_map.tile_dict[cell].flammability / 100
                 elevation_factor = 1 - (test_map.tile_dict[center].elevation - test_map.tile_dict[cell].elevation) * 10

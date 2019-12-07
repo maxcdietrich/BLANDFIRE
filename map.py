@@ -58,7 +58,7 @@ class Tile:
     The base unit of the map and our model is the tile.
     This contains information for a small geographic area
     """
-    def __init__(self, is_burning=False, flammability=0, fuel=0, wind=None, elevation=0, slope=None):
+    def __init__(self, is_burning=False, flammability=0, fuel=0, wind=None, wind_components=None, elevation=0, slope=None):
         """
         Initiate the information for a tile
         """
@@ -66,6 +66,7 @@ class Tile:
         self.flammability = flammability #0-100
         self.fuel = fuel #0-100
         self.wind = wind #should be a vector quantity
+        self.wind_components = wind_components
         self.elevation = elevation
         self.slope = slope #Likely will be list of length 8.  one entry for each adjancent tile
 
