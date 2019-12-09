@@ -2,6 +2,7 @@ import gdal
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
+import json
 
 
 class elevation:
@@ -20,11 +21,19 @@ class elevation:
         if np.any(data == no_data_val):
             self.elevation_array[data == no_data_val] = np.nan
 
+        temp = self.elevation_array.tolist()
+        temp = temp[0:1110]
+        for i in range(len(temp)):
+            temp[i] = temp[i][0:1473]
+
+        self.elevation_array = np.asarray(temp)
+
+
         self.norm_data_array = self.normalize()
 
     def display(self,resolution = 50):
         """
-        Displays original data
+        Displays original data graphically
         """
         fig = plt.figure(figsize = (12, 12))
         ax = fig.add_subplot(111)
@@ -36,6 +45,9 @@ class elevation:
         plt.show()
 
     def display_norm(self,resolution = 50):
+        """
+        Displays normalized data graphically
+        """
         fig = plt.figure(figsize = (12, 12))
         ax = fig.add_subplot(111)
         plt.contourf(self.norm_data_array, cmap = "viridis",
@@ -67,8 +79,10 @@ class elevation:
 
         xy1 and xy2 must be tuples
         """
-        rise = self.get_elevation(xy1)-self.get_elevation(xy2)
-        run = dist = np.linalg.norm(np.array(xy1)-np.array(xy2))
+        e1 = self.get_elevation(xy1)
+        e2 = self.get_elevation(xy2)
+        rise = e1 - e2
+        run = dist = np.linalg.norm(np.array(xy1)-np.array(xy2))*30
         return rise/run
 
     def normalize(self):
@@ -92,5 +106,41 @@ class elevation:
 
         return np.array(new_data_array)
 
+    def get_slope_list(self, xy):
+        temp = []
+        x = xy[0]
+        y = xy[1]
+        for cell in [(x-1,y+1),(x,y+1),(x+1,y+1),(x-1,y),(x+1,y),(x-1,y-1),(x,y-1),(x+1,y-1)]:
+            if (cell[0] < 0 or cell[1] < 0):
+                temp.append(0.0)
+                continue
+            try:
+                temp.append(self.get_slope(xy, cell))
+            except IndexError:
+                temp.append(0.0)
+
+        return temp
+
+    def cache(self):
+        elevation_dict = {}
+        norm_dict = {}
+        slope_dict = {}
+        for i in range(len(self.elevation_array)):
+            for j in range(len(self.elevation_array[0])):
+                elevation_dict[str((i,j))] = int(self.get_elevation((i,j)))
+                norm_dict[str((i,j))] = int(self.get_norm_elevation((i,j)))
+                slope_dict[str((i,j))] = self.get_slope_list((i,j))
+
+
+
+
+        with open("elevation.json", 'w') as elevation_file:
+            json.dump(elevation_dict, elevation_file)
+        with open("norm_elevation.json", 'w') as norm_file:
+            json.dump(norm_dict, norm_file)
+        with open("slope.json", 'w') as slope_file:
+            json.dump(slope_dict, slope_file)
+
+
 map = elevation("US_DEM2016.tif")
-map.display(1)
+map.cache()
