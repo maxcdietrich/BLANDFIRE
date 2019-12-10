@@ -5,6 +5,7 @@ This file should create a Map object from the compiled data and then cache that 
 """
 from random import randint
 import math
+import json
 import map
 import get_wind
 
@@ -40,9 +41,17 @@ tile_size = 30 #GIS tile 30m x 30m
 #     random_map = make_random_map()
 #     random_map.toJSON(filename)
 
+
+def load_elevation_data():
+    elevation = json.loads(open('norm_elevation.json', 'r').read())
+    slope = json.loads(open('slope.json', 'r').read())
+    return elevation, slope
+
+
 def make_real_map():
     real_map = map.Map()
     simulation_wind = get_wind.generate_wind() #get wind data
+    elevation_data, slope_data = load_elevation_data()
     for y in range(y_length//tile_size):
         for x in range(x_length//tile_size):
             tile = map.Tile()
@@ -51,7 +60,8 @@ def make_real_map():
             tile.fuel = randint(-40, 40)
             tile.wind = simulation_wind[(y * (y_length // tile_size) + x)] #convert 2d index to 1d index of wind_data
             tile.wind_components = [tile.wind[1]-45, tile.wind[1], tile.wind[1]+45, tile.wind[1]-90, tile.wind[1]+90, tile.wind[1]-135, tile.wind[1]-180, tile.wind[1]+135] #angle difference between wind direction and adjacent cell direction
-            tile.elevation = math.sin(x/(100*math.pi)) * 50 * math.sin(y/(100*math.pi)) #1D sine wave
+            tile.elevation = elevation_data[str((y, x))]
+            tile.slope = slope_data[str((y, x))]
             real_map.tile_dict[str((x, y))] = tile #key is a str because json does not take tuples as keys
     return real_map
 
@@ -64,4 +74,5 @@ def write_real_map(filename):
 
 
 # write_random_map('test_map')
+# load_elevation_data()
 write_real_map('real_map')
