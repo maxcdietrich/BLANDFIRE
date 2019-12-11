@@ -1,15 +1,15 @@
-## Python Wildfire Simulation
+# Python Wildfire Simulation
 
-### Authors
+## Authors
 Shawn Albertson, [Max Dietrich](https://github.com/maxcdietrich), Florian Michael-Schwarzinger
 
-### Description
+## Description
 This code allows you to simulate a forest fire using python in a region of California, USA near Yosemite valley based on parameters including elevation profiles, wind speed and wind direction.
 
-#### Goal
+## Goal
 We hope that this code can become a valuable tool for helping people in areas prone to forest fires predict the spread of these fires.
 
-### Instructions
+## Instructions
 Run python files
 
 #### Packages
