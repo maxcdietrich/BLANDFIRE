@@ -39,11 +39,11 @@ All .py files can be run from the terminal.
 
 Once all data sets are downloaded (elevation.json, norm_elevation.json, final_shape.lcp, final_shape.prj, and slope.json), then write_map.py can be run to create the data set used in the simulation, and then calculate_fire.py can be run to begin the simulation.  
 
-**Notice**
+**Large File Warning!**
 
 write_map.py produces a file that is about 1.3 gigabytes.  Make sure there is space on your hard drive before running the program.
 
-#### Citations
+### Citations
 - The wind data that we use in our model was generated with the [WindNinja](https://www.firelab.org/project/windninja) CFD tool.
 - Elevation and fuel data was accessed through the [LANDFIRE](https://www.landfire.gov/index.php) database
 
