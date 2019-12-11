@@ -1,5 +1,5 @@
 """
-Create a map class and its subclasses
+Create a map class and its subclasses to store all necessary data about the region of interest.
 
 @Authors: Max Dietrich
 """
@@ -8,8 +8,8 @@ import json
 
 class Map:
     """
-    A low level object containing a dictionary.
-    Intended to map tuples with x,y data to Tile objects
+    A top level object containing a dictionary.
+    Intended to map tuples with x,y position to Tile objects
     """
     def __init__(self, tile_dict={}):
         """
@@ -66,9 +66,9 @@ class Tile:
         self.flammability = flammability #0-100
         self.fuel = fuel #0-100
         self.wind = wind #should be a vector quantity
-        self.wind_components = wind_components
+        self.wind_components = wind_components #Should be a list of wind angle to the direction of each adjacent cell
         self.elevation = elevation
-        self.slope = slope #Likely will be list of length 8.  one entry for each adjancent tile
+        self.slope = slope #should be a list of slope to each adjacent tile from the perspective of this tile
 
     def __str__(self):
         burning = 'is_burning ='+str(self.is_burning)+'\n'
