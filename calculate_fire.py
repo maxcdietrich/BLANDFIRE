@@ -29,7 +29,7 @@ def catch_on_fire(center, data_map):
     try: #Will try to check fire spread unless the target cell is not in the map
         for id, cell in enumerate(cells_to_check):
             if data_map.tile_dict[cell].is_burning == False: #Only try to ignite cell if it is not on fire
-                const_factor = 0.04
+                const_factor = 0.03
 
                 wind_factor = math.exp(0.045 * data_map.tile_dict[center].wind[0]) * math.exp(data_map.tile_dict[center].wind[0] * 0.131 * (math.cos(data_map.tile_dict[center].wind_components[id] * math.pi/180) -1))
 
@@ -99,7 +99,7 @@ def run_model(iteration_limit):
     view = render.View(last_key[0], last_key[1])
     view.init_render(real_map)
 
-    burning_cells = [(800,800)] #initial burning cells
+    burning_cells = [(randint(0,1472/2),randint(0,1109)),(randint(0+(1472/2),1472),randint(0,1109))] #initial burning cells
     extinguished_cells = [] #initial extinguished cells
     iteration = 0
     while iteration <= iteration_limit:
@@ -109,4 +109,4 @@ def run_model(iteration_limit):
         except TypeError: #crash pygame gracefully
             return
 
-run_model(5000)
+run_model(10000)
