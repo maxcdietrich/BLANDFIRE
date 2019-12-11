@@ -4,7 +4,7 @@
 Shawn Albertson, [Max Dietrich](https://github.com/maxcdietrich), Florian Michael-Schwarzinger
 
 ### Description
-This code allows you to simulate a forest fire using python in a region of California, USA near Yosemite valley based on parameters including elevation profiles, wind speed and direction.
+This code allows you to simulate a forest fire using python in a region of California, USA near Yosemite valley based on parameters including elevation profiles, wind speed and wind direction.
 
 #### Goal
 We hope that this code can become a valuable tool for helping people in areas prone to forest fires predict the spread of these fires.
