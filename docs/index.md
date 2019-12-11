@@ -1,13 +1,11 @@
-# Welcome to MP5ForestFireSimulation
+# Welcome to BLANDFIRE
+
+##### Created by Max Dietrich, Shawn Albertson, and Florian Michael-Schwarzinger
 
 
 ## We simulated forest fires near the Yosemite Valley in Python
 
-
-(*screenshot of simulation in action*)
-
-
-The spread of forest fires is nuanced driven by nuanced geographic parameters, such as
+The spread of forest fires is driven by nuanced geographic parameters, such as
 - Topography
 - Wind speed and direction
 - Vegetation type

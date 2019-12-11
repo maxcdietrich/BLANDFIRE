@@ -30,7 +30,7 @@ class View:
         for coordinate in seed_map.tile_dict:
             rectangle = pygame.Rect((coordinate[0], coordinate[1]), (1, 1))
             self.rect_dict[coordinate] = rectangle
-            pygame.draw.rect(self.screen, (34, 139, 34), rectangle)
+            pygame.draw.rect(self.screen, (34, seed_map.tile_dict[coordinate].elevation, 34), rectangle) #vary shading based on elevation
         pygame.display.flip()
         time.sleep(0.01)
 
@@ -43,18 +43,20 @@ class View:
             pygame.draw.rect(self.screen, (255, 0, 0), rectangle)
         pygame.display.flip()
 
-    def make_extinguished(self, extinguish_update):
+    def make_extinguished(self, extinguish_update, seed_map):
         """
         Update the color of each rectangle that is newly extinguished
         """
         for cell in extinguish_update:
             rectangle = self.rect_dict[cell]
-            pygame.draw.rect(self.screen, (0, 0, 0), rectangle)
+            cell_fill = seed_map.tile_dict[cell].elevation #RGB values based on elevation
+            pygame.draw.rect(self.screen, (cell_fill, cell_fill, cell_fill), rectangle)
         pygame.display.flip()
 
-    def update_render(self, burn_update, extinguish_update):
+    def update_render(self, burn_update, extinguish_update, seed_map):
         """
         Cumulative updating method
         """
         self.make_burning(burn_update)
-        self.make_extinguished(extinguish_update)
+        self.make_extinguished(extinguish_update, seed_map)
+        # time.sleep(.1) #artificially pace the model to run at a more constant rate
