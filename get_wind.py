@@ -180,37 +180,36 @@ class Wind:
 
     def regrid(self, new_size, input_lower_lon, input_upper_lon, input_lower_lat, input_upper_lat):
         """
-        Takes an already calculated data set and projects it onto the desired size grid
+        Takes an already calculated data set and projects it onto the desired size grid.
+
+        For example, a data set represented in a 2x2 array could be scaled by a facter of 2 in each direction into a 4x4 array.  each value of a cell in the original 2x2 array would now occupy a 2x2 region of cells in the new array.
         """
         old_size, lon_dim, lat_dim = self.find_base_size()
 
         scaling_factor = old_size / new_size
 
-        wind_data = self.get_wind(input_lower_lon, input_upper_lon, input_lower_lat, input_upper_lat)
+        wind_data = self.get_wind(input_lower_lon, input_upper_lon, input_lower_lat, input_upper_lat) #gather the wind data
 
-        wind_data = list(split_list(wind_data, 359))
-        unit_length = len(wind_data[0])
+        wind_data = list(split_list(wind_data, 359)) #wind data is a 1D of data in a 2D space.  This splits wind_data into a list of lists with each list representing data for one row.
         new_grid = []
-        for sub_list_id, sub_list in enumerate(wind_data):
+        for sub_list_id, sub_list in enumerate(wind_data): #work through the old data set one row at a time
             counter = 0
-            while counter < scaling_factor:
+            while counter < scaling_factor: #repeate this operation for scaling factor number of columns
                 for id, val in enumerate(sub_list):
-                    if (id + 1) % 359 != 0:
-                        new_grid.extend([sub_list[id]] * int(scaling_factor))
+                    if (id + 1) % 359 != 0: #i.e. not exceeded row length
+                        new_grid.extend([sub_list[id]] * int(scaling_factor)) #add the old value scaling factor number of times in one the row
                     else:
-                        counter = counter + 1
-        print(len(new_grid))
+                        counter = counter + 1)
         return new_grid
 
 def split_list(input_list, result_length):
     """
-    Split a list into a list of lists, each with length result_length
+    Split a list into lists of result_length 
     """
     result_length = int(result_length)
     for i in range(0, len(input_list), result_length):
         yield input_list[i:i+result_length]
 
-# Everything that has to do with shapes
 def generate_wind():
     # Taken by converting UTM Zone 11 coordinates on https://www.ngs.noaa.gov/NCAT/
     # These values specific to .shp files with preface "final_shape"
