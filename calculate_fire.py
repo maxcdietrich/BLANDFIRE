@@ -99,7 +99,7 @@ def run_model(iteration_limit):
     view = render.View(last_key[0], last_key[1])
     view.init_render(real_map)
 
-    burning_cells = [(1000,800)] #initial burning cells
+    burning_cells = [(200,200)] #initial burning cells
     extinguished_cells = [] #initial extinguished cells
     iteration = 0
     while iteration <= iteration_limit:
