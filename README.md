@@ -10,7 +10,6 @@ This code allows you to simulate a forest fire using python in a region of Calif
 We hope that this code can become a valuable tool for helping people in areas prone to forest fires predict the spread of these fires.
 
 ## Instructions
-Run python files
 
 #### Packages
 - GDAL
