@@ -1,4 +1,4 @@
-# Python Wildfire Simulation
+# BLANDFIRE
 
 ## Authors
 Shawn Albertson, [Max Dietrich](https://github.com/maxcdietrich), Florian Michael-Schwarzinger
