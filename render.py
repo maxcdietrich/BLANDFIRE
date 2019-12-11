@@ -59,4 +59,4 @@ class View:
         """
         self.make_burning(burn_update)
         self.make_extinguished(extinguish_update, seed_map)
-        time.sleep(.1) #artificially pace the model to run at a more constant rate
+        # time.sleep(.1) #artificially pace the model to run at a more constant rate

@@ -5,3 +5,5 @@ test*
 __pycache__
 process_documents
 real_map.txt
+slope.json
+*.gif
