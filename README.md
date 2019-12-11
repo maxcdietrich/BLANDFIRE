@@ -42,10 +42,13 @@ Once all data sets are downloaded (elevation.json, norm_elevation.json, final_sh
 
 write_map.py produces a file that is about 1.3 gigabytes.  Make sure there is space on your hard drive before running the program.
 
-### Citations
+#### Quitting the Program
+The program will automatically terminate if the fire is extinguished or if the iteration limit is reached.  By default this limit is 5000 iterations, however this can be changed in the final line of calculate_fire.py.  All programs can also be terminated by pressing ctrl+c in the terminal window running the program.
+
+## Citations
 - The wind data that we use in our model was generated with the [WindNinja](https://www.firelab.org/project/windninja) CFD tool.
 - Elevation and fuel data was accessed through the [LANDFIRE](https://www.landfire.gov/index.php) database
 
-### Contact Information
+## Contact Information
 Shawn: salbertson@olin.edu<br />
 Florian: fschwarzinger@olin.edu
