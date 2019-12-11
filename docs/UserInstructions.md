@@ -23,3 +23,5 @@ Run pip install pyshp from the terminal
 #### How to run the code
 Run python calculate_fire.py from the terminal
 
+
+##### [Return Home](index.html)
