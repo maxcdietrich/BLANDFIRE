@@ -19,8 +19,22 @@ Run `python3 -m pip install -U pygame --user` from the terminal
 #### Installing GDAL
 Run `conda install GDAL` from the terminal
 
-#### Installing eccodes
-Visit [the installation page](https://confluence.ecmwf.int//display/ECC/ecCodes+installation) and follow the instructions as listed. Alternatively, the program can be downloaded using APT in the terminal using `sudo apt-get install python3-eccodes`
+#### Installing pyshp
+Run `pip install pyshp` from the terminal
+
+## Collecting data
+
+### Wind Data
+Acquiring detailed wind data is crucial for the representation of wildfire. WindNinja is a lightweight simulation tool which is made to study air flow over topographic regions.
+
+#### Installing WindNinja on Linux
+Visit https://github.com/firelab/windninja/wiki/Building-WindNinja-on-Linux for instructions on building WindNinja using CMake.
+
+#### Installing WindNinja on Windows
+https://www.firelab.org/document/windninja-software
+
+### Topographic data
+Visit https://www.landfire.gov/getdata.php and follow prompts to Data Distribution site. This tool allows you to download data for a specified region.
 
 ## How to run the code
 All .py files can be run from the terminal.
