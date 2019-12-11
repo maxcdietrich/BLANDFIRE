@@ -25,7 +25,7 @@ Visit [the installation page](https://confluence.ecmwf.int//display/ECC/ecCodes+
 ## How to run the code
 All .py files can be run from the terminal.
 
-Once all data sets are downloaded (elevation.json, norm_elevation.json, final_shape.lcp, final_shape.prj, and slope.json), then write_map.py can be run to create the data set used in the simulation, and then calculate_fire.py can be run to begin the simulation.  
+Once all data sets are downloaded (elevation.json, norm_elevation.json, final_shape.lcp, final_shape.prj, and [slope.json](https://drive.google.com/drive/folders/1ELMB5iuE5Ez03xmYkg5ZwO87WgNj3rbG?fbclid=IwAR35agd-1fEnZ1h9Ct4xXuKizvfS4fsl3oYCLMgz_0SgkGbWFik1fbL-Bw0)), then write_map.py can be run to create the data set used in the simulation, and then calculate_fire.py can be run to begin the simulation.  
 
 **Large File Warning!**
 
