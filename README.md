@@ -1,7 +1,7 @@
 # BLANDFIRE
 
 ## Authors
-Shawn Albertson, [Max Dietrich](https://github.com/maxcdietrich), Florian Michael-Schwarzinger
+Shawn Albertson, [Max Dietrich](https://github.com/maxcdietrich), Florian Schwarzinger
 
 ## Description
 This code allows you to simulate a forest fire using python in a region of California, USA near Yosemite valley based on parameters including elevation profiles, wind speed and wind direction.
